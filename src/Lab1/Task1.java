@@ -45,7 +45,7 @@ public class Task1 {
                 else
                 {
                     //perviy bolshe vtorogo
-                    System.out.println((float)(Math.abs(y-x)+1)/(float)(Math.abs(y-x)+1));
+                    System.out.println((float)(Math.abs(y-a)+1)/(float)(Math.abs(b-a)+1));
                 }
             }
         }
