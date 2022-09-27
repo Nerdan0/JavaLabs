@@ -13,7 +13,7 @@ public class Task1 {
         x = in.nextInt();
         y = in.nextInt();
 
-        if (a<x)
+        if (a<=x)
         {
             if (b<x)
             {
