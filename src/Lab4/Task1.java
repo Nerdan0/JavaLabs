@@ -1,8 +1,12 @@
 package Lab4;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -15,7 +19,7 @@ public class Task1 {
                 new Runnable() {
                     public void run() {
 
-                        JFrame labFrame = new lab5Window("Lab5_AOP");
+                        JFrame labFrame = new lab5Window("Lab4_5");
 
                     }
                 });
@@ -143,6 +147,55 @@ public class Task1 {
                 sendButton.setBackground(new Color(227, 227, 226));
                 sendButton.setFont(defaultFont);
                 sendButton.setBorder(BorderFactory.createLineBorder(new Color(210, 210, 210),1));
+                sendButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        //Pattern onlyCyrillicPattern = Pattern.compile("[\\p{IsCyrillic}]");
+                        Pattern onlyCyrillicPattern = Pattern.compile(".*\\p{InCyrillic}.*");
+                        Pattern containCyrillicPattern = Pattern.compile("[\\p{IsCyrillic}]");
+                        Pattern mailPattern = Pattern.compile("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",Pattern.CASE_INSENSITIVE);
+                        Matcher cyrillicMatcher = onlyCyrillicPattern.matcher(tfName.getText());
+                        Matcher mailMatcher = mailPattern.matcher(tfMail.getText());
+                        //System.out.println(cyrillicMatcher.find());
+                        //System.out.println(cyrillicMatcher.matches());
+                        //System.out.println(tfName.getText());
+                        //System.out.println(cyrillicMatcher.group());
+                        //System.out.println(textField1.getText());
+
+                        if (chMailing.isSelected()&&!tfPass.getText().trim().isEmpty()&&!tfPassAg.getText().trim().isEmpty()
+                                &&!tfPhone.getText().trim().isEmpty()&&!tfMail.getText().trim().isEmpty()&&!tfName.getText().trim().isEmpty())
+                        {
+                            if (!cyrillicMatcher.matches())
+                            {
+                                JOptionPane.showMessageDialog(lab5Window.this,
+                                        "Неправильне ім'я",
+                                        "Помилка",
+                                        JOptionPane.WARNING_MESSAGE);
+                            } else if (!mailMatcher.matches()) {
+                                mailMatcher.find();
+                                System.out.println(mailMatcher.group());
+                                JOptionPane.showMessageDialog(lab5Window.this,
+                                        "Неправильна пошта",
+                                        "Помилка",
+                                        JOptionPane.WARNING_MESSAGE);
+                            }
+                            else if (!tfPassAg.getText().equals(tfPass.getText())||(tfPassAg.getText().contains(" ")||tfPass.getText().contains(" "))
+                            ||Pattern.matches(".*\\p{InCyrillic}.*",tfPassAg.getText())||Pattern.matches(".*\\p{InCyrillic}.*",tfPass.getText()))
+                            {
+                                JOptionPane.showMessageDialog(lab5Window.this,
+                                        "Неправильні паролі",
+                                        "Помилка",
+                                        JOptionPane.WARNING_MESSAGE);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(lab5Window.this,
+                                        "Персональна інформація передана Світовому Уряду",
+                                        "",
+                                        JOptionPane.PLAIN_MESSAGE);
+                            }
+                        }
+                    }
+                });
                 add(sendButton);
             }
 
