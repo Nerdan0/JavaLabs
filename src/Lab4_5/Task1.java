@@ -1,14 +1,11 @@
-package Lab4;
+package Lab4_5;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
-import java.text.AttributedString;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class Task1 {
 
@@ -171,8 +168,7 @@ public class Task1 {
                                         "Помилка",
                                         JOptionPane.WARNING_MESSAGE);
                             } else if (!mailMatcher.matches()) {
-                                mailMatcher.find();
-                                System.out.println(mailMatcher.group());
+
                                 JOptionPane.showMessageDialog(lab5Window.this,
                                         "Неправильна пошта",
                                         "Помилка",
